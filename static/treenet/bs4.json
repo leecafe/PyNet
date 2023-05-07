@@ -1,0 +1,5 @@
+[{"name": "bs4.builder._htmlparser", "size": 0, "imports": []},
+  {"name": "bs4.builder._lxml", "size": 0, "imports": []},
+  {"name": "bs4.dammit", "size": 0, "imports": []},
+  {"name": "bs4.element", "size": 0, "imports": []},
+  {"name": "bs4.tests", "size": 0, "imports": []}]

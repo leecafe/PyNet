@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+    <style>
+		a{text-decoration:none}
+		a:hover{color:blue,text-decoration:none}
+		a:visited{color:black,text-decoration:none}
+		a:link{color:black,text-decoration:none}
+		a:active{color:black,text-decoration:none}
+	</style>
+</head>
+<body>
+<h3>Python Libs Dependency Graph</h3>
+File:<br>
+{% for f in filename %}
+{{f}}<br>
+{% endfor %}
+<hr>
+
+Docs:<br>
+{{docs}}
+<br>
+Dir:<br>
+{% for d in dirinfo %}
+{{d}}<br>
+{% endfor %}
+
+</body>
+</html>

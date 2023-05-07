@@ -1,0 +1,99 @@
+<html>
+<head>
+    	<meta charset="utf-8">
+	<style>
+		a{text-decoration:none}
+		a:hover{color:blue,text-decoration:none}
+		a:visited{color:black,text-decoration:none}
+		a:link{color:black,text-decoration:none}
+		a:active{color:black,text-decoration:none}
+	</style>
+</head>
+<body>
+Python Libs Dependency Graph<br>
+<a href="/">Python3.6</a>|<a href="/network?wanted={{jfile}}">network</a>|<a href="/tree?wanted={{jfile}}">filetree</a>|<a href="/leetree?wanted={{jfile}}">bitree</a>|<a href="/hicircle?wanted={{jfile}}">cluster</a>|<a href="/matrix?wanted={{jfile}}">matrix</a>|<a href="/bubble?wanted={{jfile}}">bubble</a>|
+<a href="/wordcloud?wanted={{jfile}}">wordcloud</a>|
+<script src="static/d3.v5.js"></script>
+<script>
+		    var width=(window.innerWidth||document.documentElement.clientWidth||document.body.clientWidth)*0.96;
+		    var height=(window.innerHeight||document.documentElement.clientHeight||document.body.clientHeight)*0.98;
+            var color = d3.schemeCategory10;
+            var svg = d3.select("body")
+					.append("svg")
+					.attr("width", width)
+					.attr("height", height);
+
+
+            var colorrec=svg.selectAll('rect')
+                            .data(color)
+                            .enter()
+                            .append("rect")
+                            .attr("x",(d,i)=>(i*16+width*0.65))
+                            .attr("y",20)
+                            .attr("width",14)
+                            .attr("height",14)
+                            .attr("fill",(d,i)=>color[i]);
+
+            var pack= d3.pack()
+			            .size([width, height]);
+						 
+            d3.json("static/treejson/{{jsonfile}}").then(function(data) {
+                console.log(data);
+                var hidata=d3.hierarchy(data,function(d){return d.children})
+				           .sum(function(d){return d.value});
+			    console.log(hidata);
+				var packdata=pack(hidata);  
+                console.log(packdata);
+                nodes=packdata.descendants()
+                console.log(nodes);
+
+            var gc=svg.selectAll("g")
+					  .data(nodes)
+					  .enter()
+			          .append("g")
+			          .attr("transform", function(d) { return "translate(" + d.x + "," +d.y + ")"; })
+					  //.attr("opacity","0.5");
+			
+
+
+			var circles = gc.append("circle")
+			                .attr("cx",0)
+							.attr("cy",0)
+							.attr("r",d=>d.r)
+							.attr("fill",d=>color[d.depth])
+							//.attr("opacity","0.5")
+							.on("mouseover", function(d,i) { 
+								d3.select(this)
+								  .attr("stroke", "#000")
+								  .attr("stroke-width", 2);
+
+								text.filter(".txt")
+								    .text("");
+								text.filter("#t"+i)
+								    .attr("font-size","20px")
+								    .text(d.data.name);
+
+							})
+							.on("mouseout", function(d,i) {
+								d3.select(this).attr("stroke", null); 
+								text.filter("#t"+i)
+								    .text("");
+							})
+
+            
+			var text = gc.append("text")							
+							.attr("font-size","12px")
+							.attr("text-anchor","middle")
+							.attr("dy","0.5em")
+							.attr("class","txt")
+							.attr("id",function(d,i){return "t"+i;})
+							.attr("fill","black")
+							.text(function(d){
+							    if (d.depth==0)
+							       return d.r>20?d.data.name:"";
+							    else
+							       return ""});
+})
+</script>
+</body>
+</html>

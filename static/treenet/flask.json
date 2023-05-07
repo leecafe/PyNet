@@ -1,0 +1,13 @@
+[{"name": "flask._compat", "size": 0, "imports": []},
+  {"name": "flask.app", "size": 2, "imports": ["flask.cli", "flask.json"]},
+  {"name": "flask.cli", "size": 0, "imports": []},
+  {"name": "flask.json", "size": 0, "imports": []},
+  {"name": "flask.blueprints", "size": 0, "imports": []},
+  {"name": "flask.config", "size": 1, "imports": ["flask.json"]},
+  {"name": "flask.ctx", "size": 0, "imports": []},
+  {"name": "flask.globals", "size": 0, "imports": []},
+  {"name": "flask.helpers", "size": 0, "imports": []},
+  {"name": "flask.sessions", "size": 1, "imports": ["flask.json"]},
+  {"name": "flask.signals", "size": 0, "imports": []},
+  {"name": "flask.templating", "size": 0, "imports": []},
+  {"name": "flask.wrappers", "size": 1, "imports": ["flask.json"]}]

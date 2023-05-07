@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    	<style>
+		a{text-decoration:none}
+		a:hover{color:blue,text-decoration:none}
+		a:visited{color:black,text-decoration:none}
+		a:link{color:black,text-decoration:none}
+		a:active{color:black,text-decoration:none}
+	</style>
+</head>
+<body>
+ <script type="text/javascript" src="static/d3.v3.min.js"></script>
+<script type='text/javascript'>
+  //数据
+var lineData=[{"x":1,   "y":5},  {"x":200,  "y":200},
+              {"x":40,  "y":10},{"x":60,  "y":40},
+              {"x":80,  "y":5},  {"x":100,"y":60}];
+
+//线生成器
+var lineFunction = d3.svg.line()
+                         .x(function(d){return d.x;})
+                         .y(function(d){return d.y;})
+                         .interpolate("line");
+
+//svg容器
+var svg= d3.select("body").append("svg")
+                          .attr("width",800)
+                          .attr("height",800);
+// 定义渐变色带，可以参考SVG的定义
+var a = d3.rgb(255,0,0);	//红色
+var b = d3.rgb(0,255,0);	//绿色
+var defs = svg.append("defs");
+var linerGradient = defs.append("linearGradient")
+					.attr("id","linearColor")
+					.attr("x1","0%")
+					.attr("y1","0%")
+					.attr("x2","100%")
+					.attr("y2","0%");
+var stop1 = linerGradient.append("stop")
+					.attr("offset","0%")
+					.style("stop-color",a.toString());
+var stop2 = linerGradient.append("stop")
+					.attr("offset","100%")
+					.style("stop-color",b.toString());
+//把path扔到容器中-- lineData和lineFunction，并给d赋属性
+var lineGraph = svg.append("path")
+                    .attr("d",lineFunction(lineData))
+                    //.attr("stroke","blue")
+					// 线的渐变使用参数为stroke
+					.attr("stroke","url(#"+linerGradient.attr("id")+")")
+                    .attr("stroke-width",1)
+                    .attr("fill","none");
+</script>
+</body>
+</html>
